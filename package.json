@@ -1,7 +1,37 @@
 {
   "name": "next-netlify-actions-ci",
-  "version": "0.1.1",
+  "version": "0.1.2",
+  "author": {
+    "name": "Imraan-Hendricks",
+    "email": "support@imraanhendricks.com"
+  },
+  "description": "A guide for setting up Continuous Integration and Continuous Deployment (CI/CD) for Next.js applications using GitHub Actions and Netlify.",
   "private": true,
+  "license": "MIT",
+  "homepage": "https://github.com/Imraan-Hendricks/next-netlify-actions-ci#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Imraan-Hendricks/next-netlify-actions-ci"
+  },
+  "bugs": {
+    "url": "https://github.com/Imraan-Hendricks/next-netlify-actions-ci/issues"
+  },
+  "keywords": [
+    "Next.js",
+    "TypeScript",
+    "boilerplate",
+    "modern applications",
+    "testing",
+    "jest",
+    "react testing library",
+    "cypress",
+    "MongoDB",
+    "netlify",
+    "github actions",
+    "CI/CD",
+    "staging",
+    "production"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
