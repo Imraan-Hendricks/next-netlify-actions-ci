@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button snapshot tests renders with expected children 1`] = `
+<div>
+  <button
+    class="bg-teal-400 hover:bg-teal-500 active:bg-teal-400 text-white py-2.5 px-7 rounded transition-colors"
+  >
+    Click Me
+  </button>
+</div>
+`;

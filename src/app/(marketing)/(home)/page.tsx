@@ -1,4 +1,4 @@
-import { Hero } from './Hero';
+import { Hero } from './Hero/Hero';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
