@@ -1,10 +1,11 @@
+import { DatabaseError } from '@/utils/error-utils';
 import { MongoClient } from 'mongodb';
 import { MONGO_URI, NODE_ENV } from '@/utils/env-utils';
 
 const options = {};
 
 if (!MONGO_URI)
-  throw new Error('Please add your Mongo URI environment variable');
+  throw new DatabaseError('Please add your Mongo URI environment variable');
 
 let client = new MongoClient(MONGO_URI, options);
 let clientPromise: Promise<MongoClient>;
@@ -31,6 +32,6 @@ export async function connectDb() {
     const db = client.db();
     return db;
   } catch (error) {
-    throw new Error('Failed to establish connection to database');
+    throw new DatabaseError('Failed to establish connection to database');
   }
 }
