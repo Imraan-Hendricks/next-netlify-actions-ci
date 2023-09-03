@@ -1,3 +1,16 @@
+import { ZodError } from 'zod';
+
+export interface ErrorObject {
+  statusCode: number;
+  name: string;
+  message: string;
+  timestamp: Date;
+}
+
+export interface ValidationErrorObject<T = any> extends ErrorObject {
+  errors: T;
+}
+
 export class GenericError extends Error {
   static statusCode: number = 500;
   public statusCode: number = GenericError.statusCode;
@@ -12,11 +25,12 @@ export class GenericError extends Error {
     }
   }
 
-  toJSON() {
+  toJSON(): ErrorObject {
     return {
       statusCode: this.statusCode,
       name: this.name,
       message: this.message,
+      timestamp: this.timestamp,
     };
   }
 }
@@ -121,22 +135,49 @@ export class ValidationError<T> extends GenericError {
   static statusCode: number = 400;
   public statusCode: number = ValidationError.statusCode;
   public name: string = 'ValidationError';
-  public errors: T[];
+  public errors: T;
 
   constructor(
-    errors: T[],
+    errors: T,
     message: string = 'The provided data does not meet the required criteria.',
   ) {
     super(message);
     this.errors = errors;
   }
 
-  toJSON() {
+  toJSON(): ValidationErrorObject<T> {
     return {
       statusCode: ValidationError.statusCode,
       name: this.name,
       message: this.message,
       errors: this.errors,
+      timestamp: this.timestamp,
     };
   }
+}
+
+export function errorResponse<T = any, E = any>(
+  error: unknown,
+): ErrorObject | ValidationErrorObject<E> {
+  if (error instanceof ZodError)
+    return new ValidationError(
+      (error as ZodError<T>).flatten().fieldErrors,
+    ).toJSON();
+  if (error instanceof GenericError) return error.toJSON();
+  return new InternalServerError();
+}
+
+export function getErrorMessage(error: unknown) {
+  let message: string;
+
+  if (error instanceof Error) {
+    message = error.message;
+  } else if (error && typeof error === 'object' && 'message' in error) {
+    message = String(error.message);
+  } else if (typeof error === 'string') {
+    message = error;
+  }
+  message = 'Something went wrong.';
+
+  return message;
 }
