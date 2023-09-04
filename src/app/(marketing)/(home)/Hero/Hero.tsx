@@ -3,7 +3,7 @@ import { Button } from '@/components/button/Button';
 
 export function Hero() {
   return (
-    <section className='h-screen flex flex-col justify-center items-center gap-4'>
+    <section className='h-screen flex flex-col justify-center items-center gap-4  bg-gradient-to-br from-white via-teal-400/10 to-teal-400 shadow'>
       <div className='flex justify-center items-center gap-4'>
         <BiLogoNetlify className='h-24 w-auto text-teal-400' />
         <div className='border-r-2 border-r-gray-200 h-24'></div>

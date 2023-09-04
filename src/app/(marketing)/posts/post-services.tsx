@@ -1,6 +1,6 @@
 import { BadRequestError, DatabaseError } from '@/utils/error-utils';
 import { getCollection } from '@/utils/db-utils';
-import { logError } from '@/db/error-logs';
+import { logError } from '@/app/logs/error-logs/error-logs-services';
 import { ObjectId } from 'mongodb';
 import { z } from 'zod';
 
@@ -71,6 +71,7 @@ export async function getPosts() {
     const posts = await postsCollection
       .find({})
       .limit(20)
+      .sort({ createdAt: -1 })
       .map(post => ({ ...post, _id: post._id.toString() }))
       .toArray();
     return posts;

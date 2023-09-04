@@ -23,7 +23,7 @@ export default function Create() {
   return (
     <div>
       <section className='py-12 container mx-auto grid gap-8'>
-        <h1 className='text-3xl'>Blog</h1>
+        <h1 className='text-3xl'>Create Post</h1>
         <form action={onCreatePost} className='grid gap-8'>
           <div className='flex gap-4 items-start'>
             <div className='grid gap-3 font-medium w-full'>

@@ -9,7 +9,7 @@ export default async function PostList() {
 
   return (
     <section className='py-12 container mx-auto grid gap-4'>
-      <h1 className='text-3xl'>Blog</h1>
+      <h1 className='text-3xl'>Posts</h1>
       {posts.length === 0 ? (
         <div>
           <p>No posts yet</p>
@@ -27,10 +27,10 @@ export default async function PostList() {
                 key={title}
                 className='relative group border py-8 px-8 rounded flex justify-between items-center hover:bg-teal-400 active:bg-teal-300 cursor-pointer transition-colors'>
                 <div className='grid gap-0.5'>
-                  <h2 className='font-medium group-hover:text-white'>
+                  <h2 className='text-teal-500 font-medium group-hover:text-white'>
                     {title}
                   </h2>
-                  <span className='text-gray-400 group-hover:text-gray-200'>
+                  <span className='text-gray-400 text-sm group-hover:text-gray-200'>
                     {formatTimeLong(createdAt)}
                   </span>
                 </div>
