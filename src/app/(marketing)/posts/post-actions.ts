@@ -1,7 +1,7 @@
 'use server';
 
 import { errorResponse } from '@/utils/error-utils';
-import { logError } from '@/app/logs/error-logs/error-logs-services';
+import { logError } from '@/app/logs/ErrorLogs/error-logs-services';
 import { ObjectId } from 'mongodb';
 import { NewPost, NewPostErrors, postServices } from './post-services';
 import { parseObjectId } from '@/utils/db-utils';

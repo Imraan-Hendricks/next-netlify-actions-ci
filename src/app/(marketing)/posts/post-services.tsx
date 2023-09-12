@@ -1,6 +1,6 @@
 import { BadRequestError, DatabaseError } from '@/utils/error-utils';
 import { getCollection } from '@/utils/db-utils';
-import { logError } from '@/app/logs/error-logs/error-logs-services';
+import { logError } from '@/app/logs/ErrorLogs/error-logs-services';
 import { ObjectId } from 'mongodb';
 import { z } from 'zod';
 

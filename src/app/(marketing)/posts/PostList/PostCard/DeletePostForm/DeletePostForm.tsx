@@ -1,24 +1,24 @@
 'use client';
 
-import { deletePostById } from '../post-actions';
+import { deletePostById } from '../../../post-actions';
 import { experimental_useFormStatus as useFormStatus } from 'react-dom';
 import { HiTrash } from 'react-icons/hi';
 import { ImSpinner8 } from 'react-icons/im';
 
-interface DeletePostProps {
+interface DeletePostFormProps {
   _id: string;
 }
 
-export function DeletePost({ _id }: DeletePostProps) {
+export function DeletePostForm({ _id }: DeletePostFormProps) {
   return (
     <form action={deletePostById}>
       <input hidden name='_id' value={_id} readOnly />
-      <SubmitDeletePost />
+      <SubmitForm />
     </form>
   );
 }
 
-export function SubmitDeletePost() {
+export function SubmitForm() {
   const { pending } = useFormStatus();
   return (
     <button className='disabled:opacity-70' disabled={pending}>
