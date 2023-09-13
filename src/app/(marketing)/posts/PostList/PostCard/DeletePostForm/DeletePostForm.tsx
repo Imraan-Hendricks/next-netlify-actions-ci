@@ -7,11 +7,15 @@ import { ImSpinner8 } from 'react-icons/im';
 
 interface DeletePostFormProps {
   _id: string;
+  setIsHovering: (isHovering: boolean) => void;
 }
 
-export function DeletePostForm({ _id }: DeletePostFormProps) {
+export function DeletePostForm({ _id, setIsHovering }: DeletePostFormProps) {
   return (
-    <form action={deletePostById}>
+    <form
+      action={deletePostById}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}>
       <input hidden name='_id' value={_id} readOnly />
       <SubmitForm />
     </form>

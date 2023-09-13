@@ -1,4 +1,8 @@
-import { BadRequestError, DatabaseError } from '@/utils/error-utils';
+import {
+  BadRequestError,
+  DatabaseError,
+  NoRecordError,
+} from '@/utils/error-utils';
 import { getCollection } from '@/utils/db-utils';
 import { logError } from '@/app/logs/ErrorLogs/error-logs-services';
 import { ObjectId } from 'mongodb';
@@ -9,7 +13,7 @@ export const PostSchema = z.object({
   _id: z.instanceof(ObjectId),
   author: z.string().min(3).max(50),
   title: z.string().min(5).max(50),
-  body: z.string().min(10).max(100000),
+  body: z.string().min(400).max(100000),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
@@ -62,6 +66,19 @@ export async function ensureUniqueTitle(title: string) {
     if (error instanceof BadRequestError) throw error;
     logError(error);
     throw new DatabaseError('Failed to check for unique title');
+  }
+}
+
+export async function getPostByTitle(title: string) {
+  try {
+    const postsCollection = await getCollection<Post>('posts');
+    const post = await postsCollection.findOne({ title });
+    if (!post) throw new NoRecordError('Post does not exist');
+    return { ...post, _id: post._id.toString() };
+  } catch (error) {
+    if (error instanceof NoRecordError) throw error.toJSON();
+    logError(error);
+    throw new DatabaseError('Failed to get post').toJSON();
   }
 }
 

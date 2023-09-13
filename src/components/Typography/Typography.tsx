@@ -7,7 +7,7 @@ interface TypographyProps {
   children: string;
   className?: ClassValue;
   thin?: boolean;
-  variant?: 'title' | 'h1' | 'largeprint' | 'body' | 'fineprint';
+  variant?: 'title' | 'subtitle' | 'h1' | 'largeprint' | 'body' | 'fineprint';
 }
 
 export function Typography({
@@ -24,6 +24,11 @@ export function Typography({
       'text-6xl sm:text-7xl',
       thin && 'font-light',
       bold && 'font-medium',
+    ),
+    subtitle: cn(
+      'text-2xl sm:text-3xl font-medium',
+      thin && 'font-normal',
+      bold && 'font-semibold',
     ),
     h1: cn(
       'text-2xl sm:text-3xl font-medium',
