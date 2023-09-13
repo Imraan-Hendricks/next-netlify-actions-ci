@@ -1,7 +1,6 @@
 'use server';
 
 import { errorResponse } from '@/utils/error-utils';
-import { logError } from '@/app/logs/ErrorLogs/error-logs-services';
 import { ObjectId } from 'mongodb';
 import { NewPost, NewPostErrors, postServices } from './post-services';
 import { parseObjectId } from '@/utils/db-utils';
@@ -32,7 +31,6 @@ export async function deletePostById(formData: FormData) {
     await postServices.deletePostById(new ObjectId(_id));
     revalidatePath('/posts');
   } catch (error) {
-    logError(error);
     return { error: errorResponse(error) };
   }
 }

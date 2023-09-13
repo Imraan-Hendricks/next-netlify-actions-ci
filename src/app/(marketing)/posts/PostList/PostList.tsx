@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getPosts } from '../post-services';
+import { getPosts } from '../post-data';
 import { ImPlus } from 'react-icons/im';
 import { PostCard } from './PostCard/PostCard';
 import { Typography } from '@/components/Typography/Typography';
@@ -14,7 +14,7 @@ export async function PostList() {
       </Typography>
       {posts.length === 0 ? (
         <div>
-          <Typography>No posts yet</Typography>
+          <Typography className='text-gray-500'>No posts yet</Typography>
         </div>
       ) : (
         <div className='grid gap-4'>

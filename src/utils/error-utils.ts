@@ -164,7 +164,7 @@ export function errorResponse<T = any, E = any>(
       (error as ZodError<T>).flatten().fieldErrors,
     ).toJSON();
   if (error instanceof GenericError) return error.toJSON();
-  return new InternalServerError();
+  return new InternalServerError().toJSON();
 }
 
 export function getErrorMessage(error: unknown) {
@@ -176,8 +176,7 @@ export function getErrorMessage(error: unknown) {
     message = String(error.message);
   } else if (typeof error === 'string') {
     message = error;
-  }
-  message = 'Something went wrong.';
+  } else message = 'Something went wrong.';
 
   return message;
 }

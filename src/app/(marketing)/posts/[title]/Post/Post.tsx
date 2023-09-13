@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/button/Button';
 import { formatTimeLong } from '@/utils/time-utils';
-import { getPostByTitle } from '../../post-services';
+import { getPostByTitle } from '../../post-data';
 import { Typography } from '@/components/Typography/Typography';
 
 interface PostProps {
@@ -18,13 +18,13 @@ export async function Post({ title }: PostProps) {
           <div className='grid gap-4'>
             <Typography
               as='span'
-              variant='subtitle'
+              variant='largeprint'
               className='text-teal-400 text-center lg:text-start'>
               {author}
             </Typography>
             <Typography
               as='h1'
-              variant='title'
+              variant='h1'
               className='text-center lg:text-start'>
               {title}
             </Typography>

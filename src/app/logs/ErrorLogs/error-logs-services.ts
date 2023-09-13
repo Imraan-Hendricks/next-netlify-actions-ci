@@ -1,5 +1,3 @@
-'use server';
-
 import {
   DatabaseError,
   ErrorObject,
@@ -26,7 +24,7 @@ export async function getErrorLogs() {
     return errorLogs;
   } catch (error) {
     logError(error);
-    throw new DatabaseError('Failed to get posts').toJSON();
+    throw new DatabaseError('Failed to get posts');
   }
 }
 
@@ -48,3 +46,5 @@ export async function logError(error: unknown) {
     console.error('Failed to log error:', error);
   }
 }
+
+export const errorLogsServices = { getErrorLogs, logError };

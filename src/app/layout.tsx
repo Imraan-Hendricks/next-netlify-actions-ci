@@ -1,5 +1,5 @@
 import './globals.css';
-import { Font } from '@/components/Font';
+import { Font } from '@/components/Font/Font';
 import { Metadata } from 'next';
 import { PropsWithChildren } from 'react';
 

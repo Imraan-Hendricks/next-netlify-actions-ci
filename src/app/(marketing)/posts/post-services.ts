@@ -3,8 +3,8 @@ import {
   DatabaseError,
   NoRecordError,
 } from '@/utils/error-utils';
+import { errorLogsServices } from '@/app/logs/ErrorLogs/error-logs-services';
 import { getCollection } from '@/utils/db-utils';
-import { logError } from '@/app/logs/ErrorLogs/error-logs-services';
 import { ObjectId } from 'mongodb';
 import { z } from 'zod';
 
@@ -39,7 +39,7 @@ export async function createPost(newPost: NewPost) {
       updatedAt: timestamp,
     });
   } catch (error) {
-    logError(error);
+    errorLogsServices.logError(error);
     throw new DatabaseError('Failed to create post');
   }
 }
@@ -49,7 +49,7 @@ export async function deletePostById(_id: ObjectId) {
     const postsCollection = await getCollection<Post>('posts');
     await postsCollection.deleteOne({ _id });
   } catch (error) {
-    logError(error);
+    errorLogsServices.logError(error);
     throw new DatabaseError('Failed to delete post');
   }
 }
@@ -64,7 +64,7 @@ export async function ensureUniqueTitle(title: string) {
     if (existingPost) throw new BadRequestError('Post already exists');
   } catch (error) {
     if (error instanceof BadRequestError) throw error;
-    logError(error);
+    errorLogsServices.logError(error);
     throw new DatabaseError('Failed to check for unique title');
   }
 }
@@ -76,9 +76,9 @@ export async function getPostByTitle(title: string) {
     if (!post) throw new NoRecordError('Post does not exist');
     return { ...post, _id: post._id.toString() };
   } catch (error) {
-    if (error instanceof NoRecordError) throw error.toJSON();
-    logError(error);
-    throw new DatabaseError('Failed to get post').toJSON();
+    if (error instanceof NoRecordError) throw error;
+    errorLogsServices.logError(error);
+    throw new DatabaseError('Failed to get post');
   }
 }
 
@@ -93,8 +93,8 @@ export async function getPosts() {
       .toArray();
     return posts;
   } catch (error) {
-    logError(error);
-    throw new DatabaseError('Failed to get posts').toJSON();
+    errorLogsServices.logError(error);
+    throw new DatabaseError('Failed to get posts');
   }
 }
 
@@ -102,6 +102,7 @@ export const postServices = {
   createPost,
   deletePostById,
   ensureUniqueTitle,
+  getPostByTitle,
   getPosts,
   PostSchema,
   NewPostSchema,

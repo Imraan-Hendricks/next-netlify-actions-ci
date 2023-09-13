@@ -1,10 +1,10 @@
 import { ClassValue, cn } from '@/utils/common-utils';
-import { createElement } from 'react';
+import { ReactNode, createElement } from 'react';
 
 interface TypographyProps {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
   bold?: boolean;
-  children: string;
+  children: ReactNode;
   className?: ClassValue;
   thin?: boolean;
   variant?: 'title' | 'subtitle' | 'h1' | 'largeprint' | 'body' | 'fineprint';

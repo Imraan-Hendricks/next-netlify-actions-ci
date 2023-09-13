@@ -1,5 +1,5 @@
 import { ErrorCard } from './ErrorCard/ErrorCard';
-import { getErrorLogs } from './error-logs-services';
+import { getErrorLogs } from './error-logs-data';
 import { Typography } from '@/components/Typography/Typography';
 
 export async function ErrorLogs() {
@@ -13,7 +13,7 @@ export async function ErrorLogs() {
         </Typography>
         {errorLogs.length === 0 ? (
           <div>
-            <Typography>No error logs yet</Typography>
+            <Typography className='text-gray-500'>No error logs yet</Typography>
           </div>
         ) : (
           <ul className='grid gap-4'>
