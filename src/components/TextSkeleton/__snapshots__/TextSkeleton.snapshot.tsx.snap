@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextSkeleton snapshot tests renders with specified custom className 1`] = `
+<div>
+  <div
+    class="h-2 bg-gray-200 rounded-full animate-pulse max-w-[100%] custom-class"
+    role="status"
+  />
+</div>
+`;
