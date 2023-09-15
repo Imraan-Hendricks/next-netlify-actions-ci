@@ -1,0 +1,50 @@
+name: Pull Request Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installing Dependencies
+        run: npm ci
+
+      - name: Performing Unit Testing
+        run: npm run test:jest-ci --if-present
+
+      - name: Create Netlify state.json file
+        run: |
+          mkdir -p .netlify
+          echo '{
+            "siteId": "${{ secrets.NETLIFY_SITE_ID }}"
+          }' > .netlify/state.json
+
+      - name: Deploy to Netlify
+        run: |
+          npx netlify-cli deploy --build --context staging --alias staging --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
+
+      - name: Create Cypress Env File
+        run: |
+          echo '{
+            "BASE_URL": "${{ secrets.STAGING_BASE_URL }}",
+            "TEST_SECRET": "${{ secrets.STAGING_TEST_SECRET }}"
+          }' > cypress.env.json
+
+      - name: Performing End-To-End Testing
+        run: npm run test:cypress-e2e --if-present
