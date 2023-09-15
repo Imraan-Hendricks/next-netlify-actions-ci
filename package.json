@@ -1,6 +1,6 @@
 {
   "name": "next-netlify-actions-ci",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "author": {
     "name": "Imraan-Hendricks",
     "email": "support@imraanhendricks.com"
@@ -65,6 +65,6 @@
     "@types/jest": "^29.5.4",
     "jest": "^29.6.4",
     "jest-environment-jsdom": "^29.6.4",
-    "netlify-cli": "^16.1.0"
+    "netlify-cli": "^16.3.3"
   }
 }
