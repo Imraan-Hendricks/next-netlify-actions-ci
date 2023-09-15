@@ -1,0 +1,41 @@
+name: Netlify Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installing Dependencies
+        run: npm ci
+
+      - name: Create Netlify state.json file
+        run: |
+          mkdir -p .netlify
+          echo '{
+            "siteId": "${{ secrets.NETLIFY_SITE_ID }}"
+          }' > .netlify/state.json
+
+      - name: Set Netlify Environment Variable
+        run: |
+          npx netlify-cli env:set MONGO_URI ${{ secrets.PRODUCTION_MONGO_URI }} --context production --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
+
+      - name: Deploy to Netlify
+        run: |
+          npx netlify-cli deploy --build --prod --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}

@@ -24,7 +24,9 @@ export function Hero() {
         Effortless CI/CD Excellence.
       </Typography>
       <div className='flex gap-2'>
-        <Button>See Documentation</Button>
+        <Link href='https://github.com/Imraan-Hendricks/next-netlify-actions-ci'>
+          <Button>See Documentation</Button>
+        </Link>
         <Link href='/posts'>
           <Button>Browse Articles</Button>
         </Link>
