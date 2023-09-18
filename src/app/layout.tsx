@@ -2,6 +2,7 @@ import './globals.css';
 import { Font } from '@/components/Font/Font';
 import { Metadata } from 'next';
 import { PropsWithChildren } from 'react';
+import { VercelModal } from './VercelModal';
 
 export const metadata: Metadata = {
   authors: { name: 'Imraan-Hendricks', url: 'https://www.imraanhendricks.com' },
@@ -14,7 +15,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang='en'>
       <body>
-        <Font>{children}</Font>
+        <Font>
+          {children}
+          <VercelModal />
+        </Font>
       </body>
     </html>
   );
