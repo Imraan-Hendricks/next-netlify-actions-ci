@@ -38,4 +38,4 @@ jobs:
 
       - name: Deploy to Netlify
         run: |
-          npx netlify-cli deploy --build --prod --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          npx netlify-cli deploy --build --prod --context production --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
